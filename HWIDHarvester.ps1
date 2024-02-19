@@ -61,7 +61,7 @@ function Log {
     }
 
     if ($logPath) {
-        $message | Out-File -FilePath $logPath -Append
+        $message | Out-File -FilePath $logPath
     }
     Write-Host $message -ForegroundColor $color
 }
@@ -187,10 +187,12 @@ if ($mode -eq 'install') {
         }
         else {
             Log "Error: ${message}" Red
+            Exit 1
         }
     }
     catch {
         Log "Error: $_" Red
+        Exit 1
     }
 }
 else {
@@ -201,7 +203,8 @@ else {
     }
     else {
         Log 'HWIDHarvester NOT detected' Red
+        Exit 1
     }
 }
-
-Exit 1
+Log 'End of file'
+Exit 0
